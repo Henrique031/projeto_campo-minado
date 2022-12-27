@@ -2,13 +2,22 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import params from './src/params';
+import Field from './src/components/Field';
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome} >Iniciando o mines</Text>
-        <Text style={styles.instructions} >Tamanho da Grade: {params.getRowsAmount()}x{params.getColumnsAmount}</Text> {/* Linhas x Colunas */}
+        <Text style={styles.instructions} >Tamanho da Grade: {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
+        {/* LGG7 - Tamanho da Grade: 23x13 */}
+
+        <Field />
+        <Field opened />
+        <Field opened nearMines={1} />
+        <Field opened nearMines={2} />
+        <Field opened nearMines={3} />
+        <Field opened nearMines={6} />
       </View>
     );
   }
