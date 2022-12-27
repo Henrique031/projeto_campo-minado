@@ -2,13 +2,15 @@ import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 
 import params from '../params'
+import Mine from './Mine'
 
 export default props => {
-    const { mined, opened, nearMines} = props // Dentro de props, eu espero receber 3 atributos (mined, opened, nearMines) //near -> perto
+    const { mined, opened, nearMines, exploded} = props // Dentro de props, eu espero receber 3 atributos (mined, opened, nearMines) //near -> perto // exploded pra sabaer se foi explodida
     // Colocando estilos condicionalmente
     const stylesField = [styles.field]
-    if (opened) stylesField.push(styles.opened) // quando tiver essa propriedade, vai mudar o estilo para opened(aberto)
-    if (stylesField.length === 1) stylesField.push(styles.regular)
+    if (opened) stylesField.push(styles.opened) // quando tiver essa propriedade, vai mudar o estilo para opened
+    if (exploded) stylesField.push(styles.exploded)
+    if (stylesField.length === 1) stylesField.push(styles.regular) // push -> add no final do array // só será add, quando passar por todos os outros testes
 
     let color = null
     if (nearMines > 0){
@@ -21,6 +23,7 @@ export default props => {
     return(
         <View style={stylesField}>
             {!mined && opened && nearMines > 0 ? <Text style={[styles.label, { color: color}]} >{nearMines}</Text> : false}
+            {mined && opened ? <Mine /> : false}
         </View>
     )
 }
@@ -47,6 +50,10 @@ const styles = StyleSheet.create({
     label: {
         fontWeight: 'bold',
         fontSize: params.fontSize,
-
+    },
+    exploded: {
+        backgroundColor: 'red',
+        borderColor: 'red',
+        
     }
 })
