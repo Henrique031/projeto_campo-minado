@@ -3,7 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import params from './src/params';
 import Field from './src/components/Field';
-import Mine from './src/components/Mine';
+// import Mine from './src/components/Mine';
+// import Flag from './src/components/Flag';
 
 export default class App extends Component {
   render() {
@@ -24,6 +25,8 @@ export default class App extends Component {
         <Field mined opened exploded />
         <Field flagged /> 
         <Field flagged opened /> 
+        {/* <Flag />
+        <Flag bigger /> */}
       </View>
     );
   }
@@ -35,6 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    // justifyContent: 'space-around',
   },
   welcome: {
     fontSize: 20, 
