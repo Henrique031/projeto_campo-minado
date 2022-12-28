@@ -21,7 +21,7 @@ const createBoard = (rows, columns) => {
 // Função 2: Espalhar minas no tabuleiro
 const spreadMines = (board, minesAmount) => {
     const rows = board.length //Qtde de linhas
-    const columns = board[0].length //Qtde de linhas
+    const columns = board[0].length //Qtde de Colunas
     let minesPlanted = 0
     while (minesPlanted < minesAmount) {
         const rowSel = parseInt(Math.random() * rows, 10 ) //rowSel(linha selecionada) // Multiplicando o random() por algum valor(rows), o valor do random fica entre o valor(rows) ex: random() * 10, out => 1.3454,5.352345,2.355,6.32524,3.6767,6.3252435,8.23454325,5.23453245,9.11673 
