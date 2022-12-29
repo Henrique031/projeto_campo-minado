@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Alert } from 'react-native';
 
 import params from './src/params';
-import Field from './src/components/Field';
+import Header from './src/components/Header';
 import MineField from './src/components/MineField';
 import {
   createMinesBoard,
@@ -11,7 +11,8 @@ import {
   hadExplosion,
   wonGame,
   showMines,
-  invertFlag
+  invertFlag,
+  flagsUsed
 } from './src/logicFunctions'
 
 
@@ -75,10 +76,7 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome} >Iniciando o mines</Text>
-        <Text style={styles.instructions} >Tamanho da Grade: {params.getRowsAmount()}x{params.getColumnsAmount()}</Text>
-        {/* LGG7 - Tamanho da Grade: 23x13 */}
-
+        <Header flagsLeft={this.minesAmount() - flagsUsed(this.state.board)} onNewGame={() => this.setState(this.createState())} />
         <View style={styles.board} >
           <MineField 
             board={this.state.board} 
