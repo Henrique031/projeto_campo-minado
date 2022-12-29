@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 
 import params from './src/params';
-import Field  from './src/components/Field';
+import Field from './src/components/Field';
 import MineField from './src/components/MineField';
-import { createMinesBoard } from './src/logicFunctions'
+import {
+  createMinesBoard,
+  cloneBoard,
+  openField,
+  hadExplosion,
+  wonGame,
+  showMines,
+  invertFlag
+} from './src/logicFunctions'
 
 
 export default class App extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = this.createState()
   }
@@ -25,7 +33,43 @@ export default class App extends Component {
     const rows = params.getRowsAmount()
     return {
       board: createMinesBoard(rows, cols, this.minesAmount()),
+      won: false,
+      lost: false,
+
     }
+  }
+
+  onOpenField = (row, column) => {
+    const board = cloneBoard(this.state.board)
+    openField(board, row, column)
+    const lost = hadExplosion(board)
+    const won = wonGame(board)
+
+    if (lost) {
+      showMines(board)
+      Alert.alert("Perdeu meu chapa")
+    }
+
+    if (won) {
+      Alert.alert("Parabéns,tu um genio!")
+    }
+
+    this.setState({ board, lost, won})
+
+  }
+
+  onSelectField = (row, column) => {
+    const board = cloneBoard(this.state.board)
+    invertFlag(board, row, column)
+    const won = wonGame(board)
+
+    if (won) {
+      Alert.alert("Parabens", "Você Venceu!!")
+    }
+
+    this.setState({ board, won })
+
+
   }
 
   render() {
@@ -36,7 +80,10 @@ export default class App extends Component {
         {/* LGG7 - Tamanho da Grade: 23x13 */}
 
         <View style={styles.board} >
-          <MineField board={this.state.board} />
+          <MineField 
+            board={this.state.board} 
+            onOpenField={this.onOpenField}
+            onSelectField={this.onSelectField} />
         </View>
       </View>
     );
