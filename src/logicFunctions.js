@@ -41,4 +41,35 @@ const createMinesBoard = (rows, columns, minesAmount) => {
     return board;
 }
 
+// sempre que for mexer no estado de um componente, não mexer diretamente na referencia do obj, mais sim gerando novos obj do mesmo.
+const cloneBoard = board => { // Clone de todos os dados/objeots do tabuleiro
+    return board.map(rows => {
+        return rows.map(field => {
+            return {...field}
+        })
+    })
+}
+
+const getNeighbors = (board, row, column) => {// Pegar vizinhos
+    const neighbors = []
+    const rows = [row - 1, row, row + 1]
+    const columns = [column - 1, column, column + 1]
+    rows.forEach(r => {
+        columns.forEach(c => {
+            const different = r !== row || c !== column
+            const validRow = r >= 0 && r < board.length
+            const validColumn = c >= 0 && c < board.length
+            if (different && validRow && validColumn) {
+                neighbors.push([r] [c])
+            }
+        })
+    })
+    return neighbors
+}
+
+// Saber si a vizinhança é segura
+const safeNeighborhood = (board, row, column) => {
+    const safes = (result, neighbor) => result && !neighbor.mined
+}
+
 export { createMinesBoard }
